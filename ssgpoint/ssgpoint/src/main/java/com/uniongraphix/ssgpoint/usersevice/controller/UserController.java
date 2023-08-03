@@ -3,10 +3,12 @@ package com.uniongraphix.ssgpoint.usersevice.controller;
 import com.uniongraphix.ssgpoint.usersevice.entity.User;
 import com.uniongraphix.ssgpoint.usersevice.service.IUserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1")
@@ -15,6 +17,7 @@ public class UserController {
 
     @PostMapping("/user")
     public String createUser(@RequestBody User user) {
+        log.info("createUser: {}", user);
         return userService.createUser(user);
     }
 
