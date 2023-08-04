@@ -1,0 +1,14 @@
+.bottom_nav {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background-color: var(--ssg-point-secondary);
+    position: fixed;
+    bottom: 0;
+}
+
+.bottom_nav nav ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+}

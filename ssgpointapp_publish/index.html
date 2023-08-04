@@ -4,8 +4,157 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SSG POINT APP</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <script>
+        const handleOpen = () => {
+            const sideMenu = document.querySelector('.side_menu');
+            sideMenu.classList.toggle('open');
+        }
+    </script>
 </head>
 <body>
-    
+    <header class="container">
+        <div class="header_top">
+            <div class="logo">
+                <h1>
+                    SHINSEGAE POINT
+                </h1>
+                <img src="./assets/images/logo/logo_gray.png" alt="SHINSEGAE POINT LOGO" />
+            </div>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="#">로그인</a>
+                    </li>
+                    <li onclick="handleOpen();">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M4 5H20" stroke="#121212" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M4 12L20 12" stroke="#121212" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M4 19H20" stroke="#121212" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="header_bottom">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="#">쿠폰</a> 
+                    </li>
+                    <li>
+                        <a href="#" class="active">홈</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <section id="main_event_banner">
+        <div class="event_banner_wrap">
+            <img src="./assets/images/event/main_event01.jpg" alt="이벤트 배너" />
+            <div class="progress_nav_wrap">
+                <div class="progress_bar"></div>
+                <div class="progress_step">
+                    <p><span>1</span>/5</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="main_option_nav">
+        <div class="main_nav">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="#">
+                            <img src="./assets/images/nav/menu01.png" alt="이벤트" />
+                            <p>이벤트</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="./assets/images/nav/menu02.png" alt="출석체크" />
+                            <p>출석체크</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="./assets/images/nav/menu03.png" alt="럭키룰렛" />
+                            <p>럭키룰렛</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="./assets/images/nav/menu04.png" alt="운세서비스" />
+                            <p>운세서비스</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="./assets/images/nav/menu05.png" alt="영수증" />
+                            <p>영수증</p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+    <footer>
+
+    </footer>
+    <div class="bottom_nav">
+        <nav>
+            <ul>
+                <li>
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M12.5 5L7.5 10L12.5 15" stroke="#454545" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M7.5 15L12.5 10L7.5 5" stroke="#ACACAC" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M3.33331 9.24087V15.5C3.33331 16.6046 4.22874 17.5 5.33331 17.5H14.6666C15.7712 17.5 16.6666 16.6046 16.6666 15.5V9.24087C16.6666 8.66414 16.4177 8.11549 15.9837 7.73572L11.317 3.65238C10.5629 2.99259 9.43702 2.99259 8.68297 3.65238L4.0163 7.73572C3.58227 8.11549 3.33331 8.66415 3.33331 9.24087Z" stroke="#454545" stroke-width="2"/>
+                            <path d="M7.5 17.4999V12.8333C7.5 11.7287 8.39543 10.8333 9.5 10.8333H10.5C11.6046 10.8333 12.5 11.7287 12.5 12.8333V17.4999" stroke="#454545" stroke-width="2"/>
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M9.04894 2.92705C9.3483 2.00574 10.6517 2.00574 10.9511 2.92705L12.0206 6.21885C12.1545 6.63087 12.5385 6.90983 12.9717 6.90983H16.4329C17.4016 6.90983 17.8044 8.14945 17.0207 8.71885L14.2205 10.7533C13.87 11.0079 13.7234 11.4593 13.8572 11.8713L14.9268 15.1631C15.2261 16.0844 14.1717 16.8506 13.388 16.2812L10.5878 14.2467C10.2373 13.9921 9.7627 13.9921 9.41221 14.2467L6.61204 16.2812C5.82833 16.8506 4.77385 16.0844 5.0732 15.1631L6.14277 11.8713C6.27665 11.4593 6.12999 11.0079 5.7795 10.7533L2.97933 8.71885C2.19562 8.14945 2.59839 6.90983 3.56712 6.90983H7.02832C7.46154 6.90983 7.8455 6.63087 7.97937 6.21885L9.04894 2.92705Z" stroke="#454545" stroke-width="2"/>
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <rect x="3.33334" y="1.66675" width="10" height="12.5" rx="1" stroke="#454545" stroke-width="2"/>
+                            <path d="M16.6667 5V15.5C16.6667 16.6046 15.7712 17.5 14.6667 17.5H6.66666" stroke="#454545" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M3.33334 5H16.6667" stroke="#454545" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M3.33334 10.8333L16.6667 10.8333" stroke="#454545" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M3.33334 16.6667H16.6667" stroke="#454545" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="side_menu">
+        menu
+    </div>
 </body>
 </html>

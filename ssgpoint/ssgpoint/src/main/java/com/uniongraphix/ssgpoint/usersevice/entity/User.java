@@ -1,12 +1,15 @@
 package com.uniongraphix.ssgpoint.usersevice.entity;
 
-import lombok.Data;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
-@Data
+@Getter @Setter
+@ToString
 public class User {
 
     @Id

@@ -22,6 +22,7 @@ public class UserServiceImple implements IUserService{
     @Override
     public User getUser(Long id) {
         User user = userRepository.findById(id).get();
+//        todo: exception handling
         return user;
     }
 

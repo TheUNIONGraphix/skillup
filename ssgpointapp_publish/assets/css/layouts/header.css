@@ -1,0 +1,86 @@
+header {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    background-color: var(--ssg-point-secondary);
+}
+header .header_top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .header_top nav ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    gap: 1rem;
+}
+
+header .header_top .logo h1 {
+    font-size: 0;
+}
+
+header .header_top .logo {
+    width: 52px;
+    height: 32px;
+}
+
+header .header_top .logo img {
+    width: 100%;
+    height: auto;
+}
+
+header .header_top nav ul li {
+    padding: 0;
+    margin: 0;
+    font-size: 0.875rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header .header_bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 0 0.2rem 0;
+}
+
+header .header_bottom nav ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    gap: 1rem;
+}
+
+header .header_bottom nav ul li {
+    padding: 0;
+    margin: 0;
+    font-size: 0.875rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+header .header_bottom nav ul li a {
+    position: relative;
+    text-align: center;
+}
+header .header_bottom nav ul li a.active {
+    font-weight: 400;
+}
+
+header .header_bottom nav ul li a.active::after {
+    content: "";
+    position: absolute;
+    top: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background-color: var(--ssg-point-primary);
+}
