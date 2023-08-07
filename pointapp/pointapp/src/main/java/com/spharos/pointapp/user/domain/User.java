@@ -1,13 +1,16 @@
 package com.spharos.pointapp.user.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Builder
 @Entity
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
@@ -31,11 +34,6 @@ public class User {
     private Integer status; // todo: default 1
     @Column(length = 100, name = "point_password")
     private String pointPassword; // todo: Hashing
-
-    @Builder
-    public User(String loginId){
-        this.loginId = loginId;
-    }
 
     public void hashPassword(String password){
         this.password = password;
