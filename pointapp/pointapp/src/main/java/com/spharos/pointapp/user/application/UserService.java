@@ -8,5 +8,6 @@ import java.util.List;
 public interface UserService {
     void createUser(UserSignUpDto userSignUpDto);
     UserGetDto getUserByLoginId(String loginId);
+    UserGetDto getUserByUUID(String UUID);
     List<UserGetDto> getAllUsers();
 }

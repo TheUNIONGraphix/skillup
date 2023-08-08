@@ -5,6 +5,7 @@ import com.spharos.pointapp.user.dto.UserGetDto;
 import com.spharos.pointapp.user.dto.UserSignUpDto;
 import com.spharos.pointapp.user.infrastructure.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserServiceImple implements UserService{
 
     private final UserRepository userRepository;
@@ -37,7 +39,31 @@ public class UserServiceImple implements UserService{
 
     @Override
     public UserGetDto getUserByLoginId(String loginId) {
-        return null;
+
+        User user = userRepository.findByLoginId(loginId);
+        log.info("user is : {}" , user);
+        UserGetDto userGetDto = UserGetDto.builder()
+                .loginId(user.getLoginId())
+                .userName(user.getUserName())
+                .email(user.getEmail())
+                .phone(user.getPhone())
+                .address(user.getAddress())
+                .build();
+        return userGetDto;
+    }
+
+    @Override
+    public UserGetDto getUserByUUID(String UUID) {
+        User user = userRepository.findByUUID(UUID);
+        log.info("user is : {}" , user);
+        UserGetDto userGetDto = UserGetDto.builder()
+                .loginId(user.getLoginId())
+                .userName(user.getUserName())
+                .email(user.getEmail())
+                .phone(user.getPhone())
+                .address(user.getAddress())
+                .build();
+        return userGetDto;
     }
 
     @Override
