@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -17,13 +18,19 @@ public class UserServiceImple implements UserService{
 
     @Override
     public void createUser(UserSignUpDto userSignUpDto) {
+
+        UUID uuid = UUID.randomUUID();
+        String uuidString = uuid.toString();
+
         User user = User.builder()
                 .loginId(userSignUpDto.getLoginId())
+                .UUID(uuidString)
                 .userName(userSignUpDto.getName())
                 .password(userSignUpDto.getPassword())
                 .email(userSignUpDto.getEmail())
                 .phone(userSignUpDto.getPhone())
                 .address(userSignUpDto.getAddress())
+                .status(1)
                 .build();
         userRepository.save(user);
     }
