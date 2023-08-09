@@ -65,5 +65,10 @@ public class PointServiceImple implements PointService{
         return pointGetDtoList;
     }
 
+    @Override
+    public List<Point> getAllPoint() {
+        return pointRepository.findAll();
+    }
+
 
 }

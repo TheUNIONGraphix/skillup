@@ -1,10 +1,13 @@
 package com.spharos.pointapp.user.domain;
 
+import com.spharos.pointapp.point.domain.Point;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Builder
 @Entity

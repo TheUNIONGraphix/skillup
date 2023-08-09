@@ -1,6 +1,7 @@
 package com.spharos.pointapp.point.presentation;
 
 import com.spharos.pointapp.point.application.PointService;
+import com.spharos.pointapp.point.domain.Point;
 import com.spharos.pointapp.point.dto.PointAddDto;
 import com.spharos.pointapp.point.dto.PointGetDto;
 import com.spharos.pointapp.point.vo.PointIn;
@@ -44,5 +45,10 @@ public class PointController {
         }).toList();
         log.info("OUTPUT pointOutList is : {}" , pointOutList);
         return pointOutList;
+    }
+
+    @GetMapping("/point/all")
+    public List<Point> getAllPoint() {
+        return pointService.getAllPoint();
     }
 }

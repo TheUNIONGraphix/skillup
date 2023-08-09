@@ -4,7 +4,10 @@ import lombok.Getter;
 
 @Getter
 public enum PointType implements CodeValue{
-    EVENT("E", "이벤트"), GIFT("G", "선물"), COUPON("C", "쿠폰"), ETC("T", "기타");
+    EVENT("E", "이벤트"),
+    GIFT("G", "선물"),
+    COUPON("C", "쿠폰"),
+    ETC("T", "기타");
 
     private String code;
     private String value;
