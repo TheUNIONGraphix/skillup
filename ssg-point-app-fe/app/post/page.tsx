@@ -24,7 +24,6 @@ function PostList() {
             postList && postList.map((post: PostType) => (
                 <div key={post.id} className='mt-5 mb-5'>
                     <p className='text-lg text-red-300'>{post.title}</p>
-                    <p>{post.body}</p>
                     <button onClick={()=>router.push(`/post/${post.id}`)}>more</button>
                 </div>
             ))
