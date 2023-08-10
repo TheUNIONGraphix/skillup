@@ -3,6 +3,7 @@
 import { UserType } from '@/types/userType'
 import { usePathname, useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
+import styles from './styles.module.css'
 
 export default function MyPage() {
 
@@ -52,6 +53,7 @@ export default function MyPage() {
     <div className="mt-5">
         <h1 onClick={handleBack}>Go Back</h1>
         <h2 onClick={handlePush}>go home</h2>
+        <p className={styles.bigfont}>mypage</p>
     </div>
   )
 }

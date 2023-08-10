@@ -1,12 +1,14 @@
 // 'use client'
 import { PostType } from '@/types/postType';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import React from 'react'
 
 async function getPostListData({ postId }: { postId: string}): Promise<PostType> {
 
-    const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
+    const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`, { next: { revalidate: 30 } })
+    if(res.ok){
+        console.log(postId,'fetch')
+    }
     if (!res.ok) {
         throw new Error('something wrong')
     }
