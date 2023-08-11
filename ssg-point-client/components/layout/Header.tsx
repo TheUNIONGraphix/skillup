@@ -3,8 +3,10 @@ import HeaderTop from "./HeaderTop"
 
 const Header = () => {
 
+  const point = 10;
+
   return (
-    <header className='fixed w-full top-0 left-0 p-4 bg-white'>
+    <header className='main_header'>
       <HeaderTop />
       <HeaderBottom />
     </header>

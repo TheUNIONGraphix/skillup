@@ -6,10 +6,13 @@ import React, { useState } from 'react'
 
 import HeaderUserStatus from './HeaderUserStatus'
 import SideMenu from '../widget/SideMenu'
+import Logo from '../ui/header/Logo'
+import { usePathname } from 'next/navigation'
 
 function HeaderTop() {
   const [isLogin, setIsLogin] = useState<Boolean>(false)
   const [isOpened, setIsOpened] = useState<Boolean>(false)
+  const pathname = usePathname();
 
   const handleSideMenu = () => {
     setIsOpened(!isOpened)
@@ -20,17 +23,11 @@ function HeaderTop() {
     <>
     <SideMenu isOpened={isOpened} setIsOpened={setIsOpened}/>
     <div className='header_top w-auto flex justify-between items-center'>
-      <div className='header_logo w-14 h-auto object-cover'>
-        <Link href='/'>
-          <Image
-              src='https://m.shinsegaepoint.com/img/logo_header.840b502c.gif'
-              alt='신세계포인트 로고'
-              width={200}
-              height={100} 
-              priority
-          />
-        </Link>
-      </div>
+      { pathname === '/' 
+      ? 
+      <Logo url={'/'} imgUrl={'https://m.shinsegaepoint.com/img/logo_header.840b502c.gif'} imgAlt={'신세계포인트 로고'}      
+      /> 
+      : "other component" }
       <nav className='header_menu'>
         <ul className='flex gap-4 justify-center items-center'>
           <li className='text-sm font-medium'>

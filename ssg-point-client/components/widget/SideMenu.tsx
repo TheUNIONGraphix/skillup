@@ -9,11 +9,8 @@ function SideMenu(props : {isOpened: Boolean, setIsOpened: React.Dispatch<React.
 
   return (
     <>
-    <div className={isOpened ? `${styles.sidemenuwrap} ${styles.open}` : `${styles.sidemenuwrap}`}>
-
-    </div>
-    
-    <div className={isOpened ? styles.overlay : ''} onClick={()=>setIsOpened(false)}></div>
+      <div className={isOpened ? `${styles.sidemenuwrap} ${styles.open}` : `${styles.sidemenuwrap}`}></div>
+      <div className={isOpened ? styles.overlay : ''} onClick={()=>setIsOpened(false)}></div>
     </>
   )
 }
