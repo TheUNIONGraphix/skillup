@@ -17,3 +17,9 @@ spring:
     password: zxcv4312
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+JWT:
+  SECRET_KEY: W0clIVM1jCU4ShCIQaKoIV3biuNPkZzz
+  EXPIRATION_TIME: 14400000
+  header: Authorization
+  prefix: Bearer
+```

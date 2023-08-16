@@ -27,7 +27,7 @@ public class UserServiceImple implements UserService{
         User user = User.builder()
                 .loginId(userSignUpDto.getLoginId())
                 .UUID(uuidString)
-                .userName(userSignUpDto.getName())
+                .name(userSignUpDto.getName())
                 .password(userSignUpDto.getPassword())
                 .email(userSignUpDto.getEmail())
                 .phone(userSignUpDto.getPhone())
@@ -40,11 +40,11 @@ public class UserServiceImple implements UserService{
     @Override
     public UserGetDto getUserByLoginId(String loginId) {
 
-        User user = userRepository.findByLoginId(loginId);
+        User user = userRepository.findByLoginId(loginId).get();
         log.info("user is : {}" , user);
         UserGetDto userGetDto = UserGetDto.builder()
                 .loginId(user.getLoginId())
-                .userName(user.getUserName())
+                .name(user.getName())
                 .email(user.getEmail())
                 .phone(user.getPhone())
                 .address(user.getAddress())
@@ -58,7 +58,7 @@ public class UserServiceImple implements UserService{
         log.info("user is : {}" , user);
         UserGetDto userGetDto = UserGetDto.builder()
                 .loginId(user.getLoginId())
-                .userName(user.getUserName())
+                .name(user.getName())
                 .email(user.getEmail())
                 .phone(user.getPhone())
                 .address(user.getAddress())

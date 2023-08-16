@@ -28,7 +28,7 @@ public class PointServiceImple implements PointService{
     @Convert(converter = PointTypeConverter.class)
     public void createPoint(PointAddDto pointAddDto) {
 
-        User getUser = userRepository.findByLoginId(pointAddDto.getLoginId());
+        User getUser = userRepository.findByLoginId(pointAddDto.getLoginId()).get();
         log.info("user is : {}" , getUser);
         if(getUser == null){
             log.info("user is null");

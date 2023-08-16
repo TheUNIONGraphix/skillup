@@ -40,7 +40,7 @@ public class UserController {
         log.info("OUTPUT userGetDto is : {}" , userGetDto);
         UserGetOut userGetOut = UserGetOut.builder()
                 .loginId(userGetDto.getLoginId())
-                .userName(userGetDto.getUserName())
+                .name(userGetDto.getName())
                 .email(userGetDto.getEmail())
                 .phone(userGetDto.getPhone())
                 .address(userGetDto.getAddress())
