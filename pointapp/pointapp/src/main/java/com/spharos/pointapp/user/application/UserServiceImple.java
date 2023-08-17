@@ -1,5 +1,6 @@
 package com.spharos.pointapp.user.application;
 
+import com.spharos.pointapp.user.domain.Roll;
 import com.spharos.pointapp.user.domain.User;
 import com.spharos.pointapp.user.dto.UserGetDto;
 import com.spharos.pointapp.user.dto.UserSignUpDto;
@@ -33,6 +34,7 @@ public class UserServiceImple implements UserService{
                 .phone(userSignUpDto.getPhone())
                 .address(userSignUpDto.getAddress())
                 .status(1)
+                .roll(Roll.USER)
                 .build();
         userRepository.save(user);
     }
@@ -54,7 +56,9 @@ public class UserServiceImple implements UserService{
 
     @Override
     public UserGetDto getUserByUUID(String UUID) {
-        User user = userRepository.findByUUID(UUID);
+        User user = userRepository.findByUUID(UUID).orElseThrow(
+                () -> new IllegalArgumentException("해당 유저가 없습니다.")
+        );
         log.info("user is : {}" , user);
         UserGetDto userGetDto = UserGetDto.builder()
                 .loginId(user.getLoginId())

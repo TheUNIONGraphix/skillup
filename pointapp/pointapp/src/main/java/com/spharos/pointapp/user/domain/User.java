@@ -43,6 +43,7 @@ public class User implements UserDetails {
     private String pointPassword; // todo: Hashing
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = true, length = 10, name = "roll")
     private Roll roll;
 
     public void hashPassword(String password){
