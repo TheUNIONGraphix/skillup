@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import React, { useState } from 'react'
 
 import HeaderUserStatus from './HeaderUserStatus'
@@ -25,7 +24,7 @@ function HeaderTop() {
     <div className='header_top w-auto flex justify-between items-center'>
       { pathname === '/' 
       ? 
-      <Logo url={'/'} imgUrl={'https://m.shinsegaepoint.com/img/logo_header.840b502c.gif'} imgAlt={'신세계포인트 로고'}      
+      <Logo url={'/'} imgAlt={'신세계포인트 로고'}      
       /> 
       : "other component" }
       <nav className='header_menu'>
