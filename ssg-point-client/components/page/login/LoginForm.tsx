@@ -1,8 +1,11 @@
 'use client'
 import { LogInFormDataType } from '@/types/formType';
-import React, { useState } from 'react'
+import { type } from 'os';
+import React, { useEffect, useState } from 'react'
 
 function LoginForm() {
+
+  const autoLogin = localStorage.getItem('autoLogin');
 
   const [loginData, setLoginData] = useState<LogInFormDataType>({
     loginId: '',
@@ -13,7 +16,9 @@ function LoginForm() {
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    
+    if(name === 'isAutoId' && e.target.checked) {
+      handleLocalStorage(loginData.loginId)
+    }
     if(name === 'isAutoId' || name === 'isAutoLogin') {
       console.log(name, e.target.checked)
       setLoginData({
@@ -29,36 +34,60 @@ function LoginForm() {
     }
   }
 
+  const handleLocalStorage = (loginId: String) => {
+    localStorage.setItem('autoLogin', loginId.toString())
+  }
+
+  useEffect(() => {
+    console.log(typeof autoLogin)
+    if(autoLogin) {
+      setLoginData({
+        ...loginData,
+        loginId: autoLogin,
+        isAutoId: true
+      })
+    }
+  },[])
+
   return (
-    <form className='w-full px-8'>
+    <form className='flex flex-col gap-3 w-full px-10'>
       <input 
         type="text" 
         name="loginId" 
         id="loginId" 
         placeholder='아이디' 
-        className='w-full'
+        className='w-full rounded-3xl bg-white p-3 text-sm border border-black-500'
+        defaultValue={autoLogin??''}
         onChange={handleOnChange}
       />
       <input 
         type="password" 
         name="password" 
         id="password" 
-        className='w-full'
+        className='w-full rounded-3xl bg-white p-3 text-sm border border-black-500'
         onChange={handleOnChange}
       />
-      <input 
-        type="checkbox" 
-        name="isAutoId" 
-        id="isAutoId" 
-        onChange={handleOnChange}
-      />
-      <label htmlFor="isAutoId">아이디 저장</label>
-      <input type="checkbox" name="isAutoLogin" id="isAutoLogin" onChange={handleOnChange}/>
-      <label htmlFor="isAutoLogin">자동 로그인</label>
-      <p>LOGIN ID : {loginData.loginId}</p>
+      <div className='flex justify-between'>
+        <div className='w-1/2'>
+          <input 
+            className='w-5 h-5'
+            type="checkbox" 
+            name="isAutoId" 
+            id="isAutoId" 
+            checked={loginData.isAutoId&&true}
+            onChange={handleOnChange}
+          />
+          <label htmlFor="isAutoId">아이디 저장</label>
+        </div>
+        <div className='w-1/2'>
+          <input type="checkbox" name="isAutoLogin" id="isAutoLogin" onChange={handleOnChange}/>
+          <label htmlFor="isAutoLogin">자동 로그인</label>
+        </div>
+      </div>
+      {/* <p>LOGIN ID : {loginData.loginId}</p>
       <p>PASSWORD : {loginData.password}</p>
       <p>IS AUTO ID : {loginData.isAutoId ? 'true' : 'false'}</p>
-      <p>IS AUTO LOGIN : {loginData.isAutoLogin ? 'true' : 'false'}</p>
+      <p>IS AUTO LOGIN : {loginData.isAutoLogin ? 'true' : 'false'}</p> */}
     </form>
   )
 }
