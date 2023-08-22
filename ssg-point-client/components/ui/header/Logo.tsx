@@ -2,7 +2,6 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import logoImg from '../../../public/assets/images/logo/logo_header.gif'
-import { usePathname } from 'next/navigation'
 
 function Logo(props : {url: string, imgUrl?: string, imgAlt: string}) {
   const { url, imgUrl, imgAlt } = props
