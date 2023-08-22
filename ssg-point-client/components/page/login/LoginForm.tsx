@@ -76,9 +76,9 @@ function LoginForm() {
         view password
       </button>
       <div className='flex justify-between'>
-        <div className='w-1/2'>
+        <div className='flex justify-start items-center gap-3'>
           <input 
-            className='w-5 h-5'
+            className='w-6 h-6 rounded-full checked:bg-black appearance-none border border-black-500 cursor-pointer'
             type="checkbox" 
             name="isAutoId" 
             id="isAutoId" 
@@ -87,8 +87,13 @@ function LoginForm() {
           />
           <label htmlFor="isAutoId">아이디 저장</label>
         </div>
-        <div className='w-1/2'>
-          <input type="checkbox" name="isAutoLogin" id="isAutoLogin" onChange={handleOnChange}/>
+        <div className='flex justify-start items-center gap-3'>
+          <input 
+            className='w-6 h-6 rounded-full checked:bg-black appearance-none border border-black-500 cursor-pointer'
+            type="checkbox" 
+            name="isAutoLogin" 
+            id="isAutoLogin" 
+            onChange={handleOnChange}/>
           <label htmlFor="isAutoLogin">자동 로그인</label>
         </div>
       </div>
