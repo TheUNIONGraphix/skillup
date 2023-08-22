@@ -13,6 +13,7 @@ function LoginForm() {
     isAutoId: false,
     isAutoLogin: false
   });
+  const [pwType, setPwType] = useState<boolean>(true);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -38,6 +39,10 @@ function LoginForm() {
     localStorage.setItem('autoLogin', loginId.toString())
   }
 
+  const handlePwType = () => {
+    setPwType(!pwType)
+  }
+
   useEffect(() => {
     console.log(typeof autoLogin)
     if(autoLogin) {
@@ -61,12 +66,15 @@ function LoginForm() {
         onChange={handleOnChange}
       />
       <input 
-        type="password" 
+        type={pwType ? 'password' : 'text'}
         name="password" 
         id="password" 
         className='w-full rounded-3xl bg-white p-3 text-sm border border-black-500'
         onChange={handleOnChange}
       />
+      <button type="button" onClick={handlePwType}>
+        view password
+      </button>
       <div className='flex justify-between'>
         <div className='w-1/2'>
           <input 
