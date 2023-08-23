@@ -10,10 +10,13 @@ async function getData() {
   return res.json()
 }
 
-export default async function Home() {
+export default async function Home({ params } : { params: { query: string }}) {
 
   const myData : ProductDataType = await getData()
   // console.log(myData)
+
+  console.log(params.query)
+  console.log(params)
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">

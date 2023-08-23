@@ -1,6 +1,7 @@
 'use client'
 import { ErroLogInFormType } from '@/types/errorType';
 import { LogInFormDataType } from '@/types/formType';
+import { signIn } from 'next-auth/react';
 import React, { useEffect, useState } from 'react'
 
 function LoginForm() {
@@ -21,9 +22,7 @@ function LoginForm() {
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    if(name === 'isAutoId' && e.target.checked) {
-      handleLocalStorage(loginData.loginId)
-    }
+    
     if(name === 'isAutoId' || name === 'isAutoLogin') {
       console.log(name, e.target.checked)
       setLoginData({
@@ -51,32 +50,27 @@ function LoginForm() {
     setPwType(!pwType)
   }
 
-  const handleLoginFetch = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLoginFetch = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(loginData)
-    const errText = {
+    let errText: ErroLogInFormType = {
       loginId: '',
       password: '',
     }
-    if(loginData.loginId === '') {
-      errText.loginId = '아이디를 입력해주세요'
-    }
-    if(loginData.password === '') {
-      errText.password = '비밀번호를 입력해주세요'
-    }
+    if(loginData.isAutoId) handleLocalStorage(loginData.loginId)
+    if(loginData.loginId === '' || loginData.loginId === undefined) errText.loginId = '아이디를 입력해주세요'
+    if(loginData.password === '' || loginData.password === undefined) errText.password = '비밀번호를 입력해주세요'
     if(errText.loginId !== '' || errText.password !== '') {
       setErrorText(errText)
       return
     } else {
-      // data fetch
-      // regEx check number 4 and string 4 and special 2
-      const regEx = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{10,}$/;
-      if(!regEx.test(loginData.password as string)) {
-        console.log('password regEx error')
-      }
-      
-      loginData.loginId 
-      console.log('data fetch')
+      console.log(loginData)
+      const result = await signIn('Credentials', {
+        username: loginData.loginId,
+        password: loginData.password,
+        redirect: false,
+        callbackUrl: '/'
+      })
+      console.log(result)
     }
   }
 

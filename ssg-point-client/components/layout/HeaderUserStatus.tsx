@@ -1,9 +1,9 @@
 import React from 'react'
 
-function HeaderUserStatus() {
+function HeaderUserStatus({title}: {title: String}) {
   return (
     <div>
-      
+      {title}
     </div>
   )
 }

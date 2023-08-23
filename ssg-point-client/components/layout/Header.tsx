@@ -12,7 +12,7 @@ const Header = () => {
     <header className='main_header'>
       <HeaderTop />
       {
-        pathname === '/login' ? null : <HeaderBottom />
+        pathname === '/' ? <HeaderBottom /> : null
       }
       
     </header>
