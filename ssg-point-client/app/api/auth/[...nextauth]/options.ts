@@ -6,51 +6,62 @@ export const options: NextAuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
+        loginId: { label: "LoginId", type: "text", placeholder: "SSGPOINT" },
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials, req) {
-       
+
+        if(!credentials?.loginId || !credentials?.password) return null
+        
         const res = await fetch("http://localhost:8000/api/v1/auth/login", {
           method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
           body: JSON.stringify({
-            loginId: credentials?.username,
+            loginId: credentials?.loginId,
             password: credentials?.password,
-          }),
-          headers: { "Content-Type": "application/json" }
+          })
         })
-        const data = await res.json()
+
+        const user = await res.json()
   
-        if (res.ok && data) {
-          console.log(data)
-          return data
+        if (res.ok && user) {
+          console.log(user)
+          return {
+            id: user.uuid,
+            token: user.token,
+          }
         }
         // Return null if user data could not be retrieved
         return null
       }
     })
   ],
-  
-  session: {
-    maxAge: 30 * 24 * 60 * 60 // 30 days
-  },
   pages: {
     signIn: "/login",
-    signOut: "/logout",
-    error: "/login",
-    verifyRequest: "/login",
-    newUser: "/signup"
   },
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
-      return true
+    session: ({ session, token }) => {
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.id,
+          randomKey: token.randomKey,
+        },
+      };
     },
-    async jwt({ token, user}) {
-      return { ...token, ...user }
+    jwt: ({ token, user }) => {
+      if (user) {
+        const u = user as unknown as any;
+        return {
+          ...token,
+          id: u.id,
+          randomKey: u.randomKey,
+        };
+      }
+      return token;
     },
-    async session({ session, token }) {
-      session.user = token as any
-      return session
-    }
-  }
+  },
 }

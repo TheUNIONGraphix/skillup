@@ -64,13 +64,24 @@ function LoginForm() {
       return
     } else {
       console.log(loginData)
-      const result = await signIn('Credentials', {
-        username: loginData.loginId,
+      // const result = await fetch('http://localhost:8000/api/v1/auth/login', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   },
+      //   body: JSON.stringify(loginData)
+      // }).then((res) => res.json())
+      // .then((res) => 
+      //   console.log(res)
+      // )
+      signIn('Credentials', {
+        loginId: loginData.loginId,
         password: loginData.password,
-        redirect: false,
+        redirect: true,
         callbackUrl: '/'
+      }).then((res) => {
+        console.log(res)
       })
-      console.log(result)
     }
   }
 

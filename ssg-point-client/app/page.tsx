@@ -1,5 +1,6 @@
 import ProductList from '@/components/ProductList';
 import { ProductDataType } from '@/types/productType';
+import Link from 'next/link';
 async function getData() {
   const res = await fetch('https://dummyjson.com/products')
   
@@ -10,20 +11,24 @@ async function getData() {
   return res.json()
 }
 
-export default async function Home({ params } : { params: { query: string }}) {
+export default async function Home() {
 
   const myData : ProductDataType = await getData()
   // console.log(myData)
 
-  console.log(params.query)
-  console.log(params)
-
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center justify-between">
      {/* <h1>Home page</h1>
      <ProductList 
       data={myData.products}
      /> */}
+     <nav style={{marginTop: '200px'}}>
+        <ul className="flex gap-10">
+          <li>
+            <Link href="/event/ingevents">Event</Link>
+          </li>
+        </ul>
+     </nav>
     </main>
   )
 }
