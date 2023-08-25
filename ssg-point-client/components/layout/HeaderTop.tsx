@@ -8,9 +8,11 @@ import SideMenu from '../widget/SideMenu'
 import Logo from '../ui/header/Logo'
 import { usePathname } from 'next/navigation'
 import { pageTitle } from '@/data/pageTitle'
+import { signOut, useSession } from 'next-auth/react'
 
 function HeaderTop() {
-  const [isLogin, setIsLogin] = useState<Boolean>(false)
+
+  const session = useSession()
   const [isOpened, setIsOpened] = useState<Boolean>(false)
   const [title, setTitle] = useState<String>('')
   const pathname = usePathname();
@@ -43,8 +45,10 @@ function HeaderTop() {
       <nav className='header_menu'>
         <ul className='flex gap-4 justify-center items-center'>
           <li className='text-sm font-medium'>
-            {isLogin ? 
-            null
+            {session.status === 'authenticated' ? 
+              <p onClick={()=>signOut(
+                {callbackUrl: 'http://localhost:3000/'}
+              )}>로그아웃 : {session.data.user.name}</p> 
             : <Link href='/login'>로그인</Link> }
           </li>
           <li onClick={handleSideMenu}>

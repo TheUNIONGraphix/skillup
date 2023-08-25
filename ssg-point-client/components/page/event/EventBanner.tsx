@@ -8,7 +8,7 @@ function EventBanner() {
 
   const [data, setData] = useState<any>();
   const query = useSearchParams();
-  console.log("url quary ",query.get('sort'))
+  console.log("url query ",query.get('sort'))
   
   return (
     <section>

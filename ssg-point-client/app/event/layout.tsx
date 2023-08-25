@@ -1,6 +1,20 @@
+'use client'
 import Link from "next/link";
+import { useSession } from 'next-auth/react'
+import { redirect, usePathname } from 'next/navigation'
 
 export default function EventLayout({children}: {children: React.ReactNode}) {
+  const pathName = usePathname()
+  console.log("pathName ",pathName)
+  const { data: session, status } = useSession(
+    {
+      required: true,
+      onUnauthenticated() {
+        if( confirm('로그인이 필요합니다. 로그인 하시겠습니까?') )
+        redirect(`/api/auth/signin?callbackUrl=${pathName}`)
+      }
+    }
+  )
   return (
     <>
     <nav className="w-full pt-20">

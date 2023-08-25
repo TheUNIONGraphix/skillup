@@ -28,40 +28,37 @@ export const options: NextAuthOptions = {
   
         if (res.ok && user) {
           console.log(user)
-          return {
-            id: user.uuid,
-            token: user.token,
-          }
+          return user
         }
         // Return null if user data could not be retrieved
         return null
       }
     })
   ],
+
+  callbacks: {
+    async jwt({ token, user }) {
+      return { ...token, ...user };
+    },
+
+    async session({ session, token }) {
+      session.user = token as any;
+      return session;
+    },
+    async redirect({ url, baseUrl }) {
+      // Allows relative callback URLs
+      if (url.startsWith("/")) return `${baseUrl}${url}`
+      // Allows callback URLs on the same origin
+      else if (new URL(url).origin === baseUrl) return url
+      return baseUrl
+    },
+  },
+
+// 여기가 추가된 부분
   pages: {
     signIn: "/login",
+    // signOut: "/logout",
   },
-  callbacks: {
-    session: ({ session, token }) => {
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          id: token.id,
-          randomKey: token.randomKey,
-        },
-      };
-    },
-    jwt: ({ token, user }) => {
-      if (user) {
-        const u = user as unknown as any;
-        return {
-          ...token,
-          id: u.id,
-          randomKey: u.randomKey,
-        };
-      }
-      return token;
-    },
-  },
+// 여기가 추가된 부분
+
 }

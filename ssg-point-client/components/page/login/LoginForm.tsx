@@ -2,9 +2,14 @@
 import { ErroLogInFormType } from '@/types/errorType';
 import { LogInFormDataType } from '@/types/formType';
 import { signIn } from 'next-auth/react';
+import { redirect } from 'next/dist/server/api-utils';
+import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 
 function LoginForm() {
+
+  const query = useSearchParams();
+  const callBackUrl = query.get('callbackUrl');
 
   const [loginData, setLoginData] = useState<LogInFormDataType>({
     loginId: '',
@@ -50,8 +55,7 @@ function LoginForm() {
     setPwType(!pwType)
   }
 
-  const handleLoginFetch = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleLoginFetch = async () => {
     let errText: ErroLogInFormType = {
       loginId: '',
       password: '',
@@ -64,23 +68,11 @@ function LoginForm() {
       return
     } else {
       console.log(loginData)
-      // const result = await fetch('http://localhost:8000/api/v1/auth/login', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   },
-      //   body: JSON.stringify(loginData)
-      // }).then((res) => res.json())
-      // .then((res) => 
-      //   console.log(res)
-      // )
-      signIn('Credentials', {
+      const result = await signIn('credentials', {
         loginId: loginData.loginId,
         password: loginData.password,
         redirect: true,
-        callbackUrl: '/'
-      }).then((res) => {
-        console.log(res)
+        callbackUrl: callBackUrl ? callBackUrl : '/'
       })
     }
   }
@@ -100,7 +92,7 @@ function LoginForm() {
   },[])
 
   return (
-    <form className='flex flex-col gap-3 w-full px-10' onSubmit={handleLoginFetch}>
+    <form className='flex flex-col gap-3 w-full px-10'>
       <input 
         type="text" 
         name="loginId" 
@@ -144,7 +136,7 @@ function LoginForm() {
           <label htmlFor="isAutoLogin">자동 로그인</label>
         </div>
       </div>
-      <button type="submit" className='w-full rounded-3xl bg-black text-white p-3 text-sm border border-black-500'>
+      <button type="button" className='w-full rounded-3xl bg-black text-white p-3 text-sm border border-black-500' onClick={handleLoginFetch}>
         로그인
       </button>
       {/* <p>LOGIN ID : {loginData.loginId}</p>
