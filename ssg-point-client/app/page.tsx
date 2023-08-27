@@ -1,4 +1,3 @@
-import ProductList from '@/components/ProductList';
 import { ProductDataType } from '@/types/productType';
 import Link from 'next/link';
 import { getServerSession } from 'next-auth';
