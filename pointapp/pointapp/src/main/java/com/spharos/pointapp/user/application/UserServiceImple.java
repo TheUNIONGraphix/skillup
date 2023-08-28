@@ -42,7 +42,6 @@ public class UserServiceImple implements UserService{
     }
 
     @Override
-    @Transactional(readOnly = true)
     public UserGetDto getUserByLoginId(String loginId) {
 
         User user = userRepository.findByLoginId(loginId).get();

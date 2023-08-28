@@ -16,6 +16,7 @@ import java.util.Map;
 @Configuration
 public class DataSourceConfiguration {
 
+    // 데이터베이스 연결을 결정하는 데 사용할 상수를 정의한다.
     public static final String MASTER_DATASOURCE = "masterDataSource";
     public static final String SLAVE_DATASOURCE = "slaveDataSource";
 
