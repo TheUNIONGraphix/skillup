@@ -27,7 +27,7 @@ public class JpaConfiguration {
         // DataSource를 주입받은 dataSource로 설정한다.
         entityManagerFactory.setDataSource(dataSource);
         // JPA 엔티티 클래스가 포함된 패키지를 설정한다.
-        entityManagerFactory.setPackagesToScan("com.adoptpet.server");
+        entityManagerFactory.setPackagesToScan("com.spharos.pointapp.point.domain", "com.spharos.pointapp.user.domain");
         // JPA 벤더 어뎁터를 설정한다.
         entityManagerFactory.setJpaVendorAdapter(jpaVendorAdapter());
         // 영속성 유닛의 이름을 entityManager로 설정한다.
@@ -44,7 +44,7 @@ public class JpaConfiguration {
         // SQL 쿼리를 로깅하지 않도록 설정
         hibernateJpaVendorAdapter.setShowSql(false);
         // SQL 방언을 MySQL 5 Inno DB 방언으로 설정
-        hibernateJpaVendorAdapter.setDatabasePlatform("org.hibernate.dialect.MySQL5InnoDBDialect");
+//        hibernateJpaVendorAdapter.setDatabasePlatform("org.hibernate.dialect.MySQL5InnoDBDialect");
         return hibernateJpaVendorAdapter;
     }
 
