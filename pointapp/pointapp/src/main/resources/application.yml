@@ -12,10 +12,26 @@ spring:
     show-sql: true
 
   datasource:
-    url: jdbc:mysql://localhost:3306/ssgpoint
-    username: root
-    password: zxcv4312
-    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/ssgpoint
+#    username: root
+#    password: zxcv4312
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+    master:
+      hikari:
+        url: jdbc:mysql://localhost:3306/ssgpoint
+        read-only: false
+        username: root
+        password: zxcv4312
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    slave:
+      hikari:
+        url: jdbc:mysql://localhost:3306/ssgpoint
+        read-only: true
+        username: root
+        password: zxcv4312
+        driver-class-name: com.mysql.cj.jdbc.Driver
+
+
 
 JWT:
   SECRET_KEY: f9ee13691cd0a3de2875b5fdcf5babcdb3394a3801e0843d6f998f78b9e016a0

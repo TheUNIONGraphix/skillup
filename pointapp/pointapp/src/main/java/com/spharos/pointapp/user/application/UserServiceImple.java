@@ -7,7 +7,9 @@ import com.spharos.pointapp.user.dto.UserSignUpDto;
 import com.spharos.pointapp.user.infrastructure.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -40,6 +42,7 @@ public class UserServiceImple implements UserService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public UserGetDto getUserByLoginId(String loginId) {
 
         User user = userRepository.findByLoginId(loginId).get();
@@ -55,23 +58,30 @@ public class UserServiceImple implements UserService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public UserGetDto getUserByUUID(String UUID) {
-        User user = userRepository.findByUUID(UUID).orElseThrow(
-                () -> new IllegalArgumentException("해당 유저가 없습니다.")
-        );
-        log.info("user is : {}" , user);
-        UserGetDto userGetDto = UserGetDto.builder()
-                .loginId(user.getLoginId())
-                .name(user.getName())
-                .email(user.getEmail())
-                .phone(user.getPhone())
-                .address(user.getAddress())
-                .build();
-        return userGetDto;
+        try {
+            User user = userRepository.findByUUID(UUID).orElseThrow(
+                    () -> new IllegalArgumentException("해당 유저가 없습니다.")
+            );
+            ModelMapper modelMapper = new ModelMapper();
+            return modelMapper.map(user, UserGetDto.class);
+        } catch (Exception e) {
+            log.info("error is : {}" , e);
+        }
+        return null;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<UserGetDto> getAllUsers() {
-        return null;
+        ModelMapper modelMapper = new ModelMapper();
+        List<User> users = userRepository.findAll();
+        List<UserGetDto> userGetDtos = users.stream().map(
+                user -> modelMapper.map(user, UserGetDto.class)
+        ).toList();
+//        List<UserGetDto> userGetDtos = modelMapper.map(users, List.class).stream().toList();
+        log.info("userGetDtos is : {}" , userGetDtos);
+        return userGetDtos;
     }
 }

@@ -24,7 +24,6 @@ public class JwtTokenProvider {
 
     private final Environment env;
 
-
     public String getLoginId(String token) {
         return extractClaim(token, Claims::getSubject);
     }

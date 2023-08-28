@@ -2,7 +2,6 @@ package com.spharos.pointapp.auth;
 
 import com.spharos.pointapp.auth.vo.AuthenticationRequest;
 import com.spharos.pointapp.auth.vo.AuthenticationResponse;
-import com.spharos.pointapp.auth.vo.SignUpRequest;
 import com.spharos.pointapp.config.security.JwtTokenProvider;
 import com.spharos.pointapp.user.domain.User;
 import com.spharos.pointapp.user.dto.UserSignUpDto;
@@ -50,18 +49,23 @@ public class AuthenticationService {
                 .build();
     }
 
-    public AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        authenticationRequest.getLoginId(),
-                        authenticationRequest.getPassword()
-                )
-        );
+    public AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest) throws Exception {
 
-        User user = userRepository.findByLoginId(authenticationRequest.getLoginId()).orElseThrow();
-        String JwtToken = jwtTokenProvider.generateToken(user);
-        return AuthenticationResponse.builder()
-                .token(JwtToken)
-                .build();
+
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            authenticationRequest.getLoginId(),
+                            authenticationRequest.getPassword()
+                    )
+            );
+            User user = userRepository.findByLoginId(authenticationRequest.getLoginId()).orElseThrow();
+            String JwtToken = jwtTokenProvider.generateToken(user);
+            return AuthenticationResponse.builder()
+                    .uuid(user.getUUID())
+                    .name(user.getName())
+                    .token(JwtToken)
+                    .build();
+
+
     }
 }

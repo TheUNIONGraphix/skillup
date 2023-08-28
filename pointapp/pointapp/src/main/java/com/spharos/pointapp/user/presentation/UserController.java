@@ -12,8 +12,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -35,31 +39,25 @@ public class UserController {
     @PostMapping("/user")
     public void createUser(@RequestBody UserSignUpIn userSignUpIn) {
         log.info("INPUT Object Data is : {}" , userSignUpIn);
-        UserSignUpDto userSignUpDto = UserSignUpDto.builder()
-                .loginId(userSignUpIn.getLoginId())
-                .password(userSignUpIn.getPassword())
-                .name(userSignUpIn.getName())
-                .email(userSignUpIn.getEmail())
-                .phone(userSignUpIn.getPhone())
-                .address(userSignUpIn.getAddress())
-                .build();
-        userService.createUser(userSignUpDto);
+        ModelMapper modelMapper = new ModelMapper();
+        userService.createUser(modelMapper.map(userSignUpIn, UserSignUpDto.class));
     }
 
-    @GetMapping("/user/{UUID}")
+    @GetMapping("/user/{loginId}")
     public ResponseEntity<UserGetOut> getUserByUUID(@PathVariable String UUID) {
-        log.info("INPUT UUID is : {}" , UUID);
-        UserGetDto userGetDto = userService.getUserByUUID(UUID);
-        log.info("OUTPUT userGetDto is : {}" , userGetDto);
-        UserGetOut userGetOut = UserGetOut.builder()
-                .loginId(userGetDto.getLoginId())
-                .name(userGetDto.getName())
-                .email(userGetDto.getEmail())
-                .phone(userGetDto.getPhone())
-                .address(userGetDto.getAddress())
-                .build();
-        log.info("OUTPUT userGetOut is : {}" , userGetOut);
-        return ResponseEntity.ok(userGetOut);
+        ModelMapper modelMapper = new ModelMapper();
+        return ResponseEntity.ok(modelMapper.map(userService.getUserByUUID(UUID), UserGetOut.class));
+    }
+
+    @GetMapping("/users")
+//    spring security jwt
+//    public ResponseEntity<UserGetOut> getUserByLoginId(@AuthenticationPrincipal User user) {
+//        ModelMapper modelMapper = new ModelMapper();
+//        return ResponseEntity.ok(modelMapper.map(userService.getUserByLoginId(user.getLoginId()), UserGetOut.class));
+//    }
+    public ResponseEntity<List<UserGetOut>> getAllUser() {
+        ModelMapper modelMapper = new ModelMapper();
+        return ResponseEntity.ok(modelMapper.map(userService.getAllUsers(), List.class));
     }
 
 }

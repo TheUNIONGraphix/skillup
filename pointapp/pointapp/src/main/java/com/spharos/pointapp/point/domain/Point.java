@@ -3,12 +3,14 @@ package com.spharos.pointapp.point.domain;
 import com.spharos.pointapp.user.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Entity
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ConfigurationProperties(prefix = "spring.datasource")
 public class Point {
 
     @Id
