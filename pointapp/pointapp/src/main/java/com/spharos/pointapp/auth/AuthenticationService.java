@@ -11,18 +11,21 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class AuthenticationService {
 
     private final UserRepository userRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthenticationManager authenticationManager;
 
+    @Transactional(readOnly = false)
     public AuthenticationResponse signup(UserSignUpDto userSignUpDto) {
         UUID uuid = UUID.randomUUID();
         String uuidString = uuid.toString();
@@ -49,6 +52,7 @@ public class AuthenticationService {
                 .build();
     }
 
+    @Transactional(readOnly = false)
     public AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest) throws Exception {
 
 

@@ -17,11 +17,13 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional(readOnly = true)
 public class UserServiceImple implements UserService{
 
     private final UserRepository userRepository;
 
     @Override
+    @Transactional(readOnly = false)
     public void createUser(UserSignUpDto userSignUpDto) {
 
         UUID uuid = UUID.randomUUID();
@@ -42,7 +44,6 @@ public class UserServiceImple implements UserService{
     }
 
     @Override
-    @Transactional(readOnly = true)
     public UserGetDto getUserByLoginId(String loginId) {
 
         User user = userRepository.findByLoginId(loginId).get();
@@ -58,7 +59,6 @@ public class UserServiceImple implements UserService{
     }
 
     @Override
-    @Transactional(readOnly = true)
     public UserGetDto getUserByUUID(String UUID) {
         try {
             User user = userRepository.findByUUID(UUID).orElseThrow(
@@ -73,7 +73,6 @@ public class UserServiceImple implements UserService{
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<UserGetDto> getAllUsers() {
         ModelMapper modelMapper = new ModelMapper();
         List<User> users = userRepository.findAll();

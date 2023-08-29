@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Key;
 import java.util.Date;
@@ -27,8 +28,7 @@ public class JwtTokenProvider {
     public String getLoginId(String token) {
         return extractClaim(token, Claims::getSubject);
     }
-
-   public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
@@ -55,7 +55,6 @@ public class JwtTokenProvider {
         final String loginId = getLoginId(token);
         return (loginId.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
-
     private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new java.util.Date());
     }
@@ -72,7 +71,6 @@ public class JwtTokenProvider {
                 .parseClaimsJws(token)
                 .getBody();
     }
-
     private Key getSigningKey() {
         byte[] keyBytes = Decoders.BASE64.decode(env.getProperty("JWT.SECRET_KEY"));
         return Keys.hmacShaKeyFor(keyBytes);
