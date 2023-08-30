@@ -3,6 +3,7 @@ package com.spharos.pointapp.auth;
 import com.spharos.pointapp.auth.vo.AuthenticationRequest;
 import com.spharos.pointapp.auth.vo.AuthenticationResponse;
 import com.spharos.pointapp.config.security.JwtTokenProvider;
+import com.spharos.pointapp.user.domain.Roll;
 import com.spharos.pointapp.user.domain.User;
 import com.spharos.pointapp.user.dto.UserSignUpDto;
 import com.spharos.pointapp.user.infrastructure.UserRepository;
@@ -31,7 +32,6 @@ public class AuthenticationService {
         String uuidString = uuid.toString();
 
         log.info("userSignUpDto is : {}" , userSignUpDto);
-
         User user = User.builder()
                 .loginId(userSignUpDto.getLoginId())
                 .UUID(uuidString)
@@ -40,6 +40,7 @@ public class AuthenticationService {
                 .email(userSignUpDto.getEmail())
                 .phone(userSignUpDto.getPhone())
                 .address(userSignUpDto.getAddress())
+                .roll(Roll.USER)
                 .status(1)
                 .build();
         user.hashPassword(user.getPassword());
@@ -52,7 +53,6 @@ public class AuthenticationService {
                 .build();
     }
 
-    @Transactional(readOnly = false)
     public AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest) throws Exception {
 
 

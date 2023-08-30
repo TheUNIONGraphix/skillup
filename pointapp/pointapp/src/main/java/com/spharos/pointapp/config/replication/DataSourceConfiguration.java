@@ -45,7 +45,6 @@ public class DataSourceConfiguration {
 
         RoutingDataSource routingDataSource = new RoutingDataSource();
 
-
         Map<Object, Object> datasourceMap = ImmutableMap.<Object, Object>builder()
                 .put("master", masterDataSource)
                 .put("slave", slaveDataSource)

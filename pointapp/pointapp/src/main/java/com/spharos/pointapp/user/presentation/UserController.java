@@ -43,8 +43,8 @@ public class UserController {
         userService.createUser(modelMapper.map(userSignUpIn, UserSignUpDto.class));
     }
 
-    @GetMapping("/user/{loginId}")
-    public ResponseEntity<UserGetOut> getUserByUUID(@PathVariable String UUID) {
+    @GetMapping("/user/{uuid}")
+    public ResponseEntity<UserGetOut> getUserByUUID(@PathVariable(name="uuid") String UUID) {
         ModelMapper modelMapper = new ModelMapper();
         return ResponseEntity.ok(modelMapper.map(userService.getUserByUUID(UUID), UserGetOut.class));
     }

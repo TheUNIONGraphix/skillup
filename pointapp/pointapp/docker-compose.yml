@@ -11,7 +11,7 @@ services:
     # 컨테이너가 비정상적으로 종료되었을 때 자동으로 재시작
     restart: always
     # 컨테이너가 실행될 플랫폼을 지정
-    platform: linux/x86_64
+#    platform: linux/x86_64
     # 컨테이너 내에서 사용할 환경 변수를 설정
     environment:
       # MySQL 데이터베이스의 이름을 db로 설정
@@ -43,7 +43,7 @@ services:
       context: ./
       dockerfile: slave/Dockerfile
     restart: always
-    platform: linux/x86_64
+#    platform: linux/x86_64
     environment:
       MYSQL_DATABASE: 'ssgpoint'
       MYSQL_USER: 'user'
@@ -62,10 +62,26 @@ services:
     networks:
       - net-mysql
 
+#  point-app:
+#    build:
+#      context: ./
+#      dockerfile: pointapp/Dockerfile
+#    restart: always
+#    networks:
+#      - net-mysql
+#    ports:
+#      - "8000:8000"
+#    container_name: point-app
+#    volumes:
+#      - pointapp:/app
+
+
+
 # 컨테이너에서 사용할 볼륨의 이름을 정의한다.
 volumes:
   my-db-master:
   my-db-slave:
+#  pointapp:
 
 # net-mysql 이라는 이름의 네트워크를 정의한다.
 networks:
