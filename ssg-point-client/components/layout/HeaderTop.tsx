@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
+import Swal from "sweetalert2";
 import HeaderUserStatus from './HeaderUserStatus'
 import SideMenu from '../widget/SideMenu'
 import Logo from '../ui/header/Logo'
@@ -20,6 +21,25 @@ function HeaderTop() {
   const handleSideMenu = () => {
     setIsOpened(!isOpened)
     console.log(isOpened)
+  }
+
+  const handleLogout = () => {
+    Swal.fire({
+      text: "로그아웃 하시겠습니까?",
+      showCancelButton: true,
+      confirmButtonText: "네",
+      cancelButtonText: "아니요",
+      customClass: {
+        confirmButton: 'mySwalConfirmButton',
+        cancelButton: 'mySwalCancelButton',
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        signOut(
+          {callbackUrl: 'http://localhost:3000/'}
+        )
+      }
+    })
   }
 
   useEffect(() => {
@@ -46,9 +66,7 @@ function HeaderTop() {
         <ul className='flex gap-4 justify-center items-center'>
           <li className='text-sm font-medium'>
             {session.status === 'authenticated' ? 
-              <p onClick={()=>signOut(
-                {callbackUrl: 'http://localhost:3000/'}
-              )}>로그아웃 : {session.data.user.name}</p> 
+              <p onClick={handleLogout}>로그아웃 : {session.data.user.name}</p> 
             : <Link href='/login'>로그인</Link> }
           </li>
           <li onClick={handleSideMenu}>
