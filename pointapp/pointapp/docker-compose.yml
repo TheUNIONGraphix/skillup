@@ -62,18 +62,18 @@ services:
     networks:
       - net-mysql
 
-#  point-app:
-#    build:
-#      context: ./
-#      dockerfile: pointapp/Dockerfile
-#    restart: always
-#    networks:
-#      - net-mysql
-#    ports:
-#      - "8000:8000"
-#    container_name: point-app
-#    volumes:
-#      - pointapp:/app
+  point-app:
+    build:
+      context: ./
+      dockerfile: point-app/Dockerfile
+    restart: always
+    networks:
+      - net-mysql
+    ports:
+      - "8000:8000"
+    container_name: point-app
+    volumes:
+      - point-app:/app
 
 
 

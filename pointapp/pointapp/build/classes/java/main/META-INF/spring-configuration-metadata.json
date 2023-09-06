@@ -1,0 +1,18 @@
+{
+  "groups": [
+    {
+      "name": "spring.datasource.master.hikari",
+      "type": "javax.sql.DataSource",
+      "sourceType": "com.spharos.pointapp.config.replication.DataSourceConfiguration",
+      "sourceMethod": "masterDataSource()"
+    },
+    {
+      "name": "spring.datasource.slave.hikari",
+      "type": "javax.sql.DataSource",
+      "sourceType": "com.spharos.pointapp.config.replication.DataSourceConfiguration",
+      "sourceMethod": "slaveDataSource()"
+    }
+  ],
+  "properties": [],
+  "hints": []
+}

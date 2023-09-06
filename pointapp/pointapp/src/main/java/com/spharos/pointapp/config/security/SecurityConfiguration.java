@@ -1,6 +1,5 @@
 package com.spharos.pointapp.config.security;
 
-import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +11,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -21,6 +23,18 @@ public class SecurityConfiguration {
     private final JwtAuthenticationFilter jwtTokenProvider;
     private final AuthenticationProvider authendicationProvider;
 
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource () {
+        return request -> {
+            var cors = new org.springframework.web.cors.CorsConfiguration();
+            cors.setAllowedOriginPatterns(List.of("*"));
+            cors.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+            cors.setAllowedHeaders(List.of("*"));
+            return cors;
+        };
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -28,6 +42,8 @@ public class SecurityConfiguration {
                 .csrf(CsrfConfigurer::disable)
                 .authorizeHttpRequests(
                         authorizeHttpRequests -> authorizeHttpRequests
+                                .requestMatchers(org.springframework.web.cors.CorsUtils::isPreFlightRequest)
+                                .permitAll()
                                 .requestMatchers("/api/v1/**", "/swagger-ui/**", "/swagger-resources/**", "/api-docs/**", "/api/v1/user/**")
                                 .permitAll()
                                 .anyRequest()
@@ -40,17 +56,8 @@ public class SecurityConfiguration {
                 .authenticationProvider(authendicationProvider)
                 .addFilterBefore(jwtTokenProvider, UsernamePasswordAuthenticationFilter.class);
 
-//        http
-//           .csrf().disable()
-//           .authorizeRequests()
-//           .antMatchers("/api/v1/auth/**").permitAll()
-//           .anyRequest().authenticated()
-//           .and()
-//           .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//           .and()
-//           .authenticationProvider(authendicationProvider)
-//           .addFilterBefore((Filter) jwtTokenProvider, UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
+
+
 }

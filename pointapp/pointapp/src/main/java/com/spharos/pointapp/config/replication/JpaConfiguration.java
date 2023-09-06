@@ -27,7 +27,11 @@ public class JpaConfiguration {
         // DataSource를 주입받은 dataSource로 설정한다.
         entityManagerFactory.setDataSource(dataSource);
         // JPA 엔티티 클래스가 포함된 패키지를 설정한다.
-        entityManagerFactory.setPackagesToScan("com.spharos.pointapp.point.domain", "com.spharos.pointapp.user.domain");
+        entityManagerFactory.setPackagesToScan(
+                "com.spharos.pointapp.point.domain",
+                "com.spharos.pointapp.user.domain",
+                "com.spharos.pointapp.oauth.domain"
+        );
         // JPA 벤더 어뎁터를 설정한다.
         entityManagerFactory.setJpaVendorAdapter(jpaVendorAdapter());
         // 영속성 유닛의 이름을 entityManager로 설정한다.

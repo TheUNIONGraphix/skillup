@@ -9,6 +9,8 @@ import com.spharos.pointapp.user.dto.UserSignUpDto;
 import com.spharos.pointapp.user.infrastructure.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import oauth.domain.OAuthLogin;
+import oauth.infrastructure.OAuthLoginRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
@@ -53,6 +55,7 @@ public class AuthenticationService {
                 .build();
     }
 
+
     public AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest) throws Exception {
 
 
@@ -71,5 +74,18 @@ public class AuthenticationService {
                     .build();
 
 
+    }
+
+    public AuthenticationResponse oAuthLogin(String oauthId) throws Exception {
+        User user = userRepository.findByOauthId(oauthId).get();
+        if( user == null ) {
+            throw new Exception("User not found");
+        }
+        String JwtToken = jwtTokenProvider.generateToken(user);
+        return AuthenticationResponse.builder()
+                .uuid(user.getUUID())
+                .name(user.getName())
+                .token(JwtToken)
+                .build();
     }
 }
