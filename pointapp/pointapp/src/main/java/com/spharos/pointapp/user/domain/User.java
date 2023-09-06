@@ -42,6 +42,8 @@ public class User implements UserDetails {
     private Integer status; // todo: default 1
     @Column(length = 100, name = "point_password")
     private String pointPassword; // todo: Hashing
+    @Column(length = 100, name = "oauth_id")
+    private String OAuthId;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = true, length = 10, name = "roll")

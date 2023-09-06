@@ -32,4 +32,16 @@ public class AuthenticationController {
             throw new Exception("Invalid username/password supplied");
         }
     }
+
+    @PostMapping("/oauth/login")
+    public ResponseEntity<AuthenticationResponse> oAuthLogin(
+            @RequestParam String oauthId
+    ) throws Exception {
+        try {
+            return ResponseEntity.ok(authenticationService.oAuthLogin(oauthId));
+        } catch (Exception e) {
+            throw new Exception("Invalid OAuthId supplied");
+        }
+    }
+
 }
