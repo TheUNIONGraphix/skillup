@@ -51,6 +51,7 @@ public class UserController {
 
     @GetMapping("/users")
     public ResponseEntity<List<UserGetOut>> getAllUser() {
+        log.info("getAllUser() is called");
         ModelMapper modelMapper = new ModelMapper();
         return ResponseEntity.ok(modelMapper.map(userService.getAllUsers(), List.class));
     }
