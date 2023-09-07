@@ -50,11 +50,6 @@ public class UserController {
     }
 
     @GetMapping("/users")
-//    spring security jwt
-//    public ResponseEntity<UserGetOut> getUserByLoginId(@AuthenticationPrincipal User user) {
-//        ModelMapper modelMapper = new ModelMapper();
-//        return ResponseEntity.ok(modelMapper.map(userService.getUserByLoginId(user.getLoginId()), UserGetOut.class));
-//    }
     public ResponseEntity<List<UserGetOut>> getAllUser() {
         ModelMapper modelMapper = new ModelMapper();
         return ResponseEntity.ok(modelMapper.map(userService.getAllUsers(), List.class));
