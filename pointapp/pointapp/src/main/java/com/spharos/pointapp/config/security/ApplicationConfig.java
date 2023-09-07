@@ -2,7 +2,6 @@ package com.spharos.pointapp.config.security;
 
 import com.spharos.pointapp.user.infrastructure.UserRepository;
 import lombok.RequiredArgsConstructor;
-import oauth.infrastructure.OAuthLoginRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
